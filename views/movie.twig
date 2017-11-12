@@ -1,0 +1,28 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h2>{{ title }} ({{ releaseDate|date("Y") }})</h2>
+
+    {% if posterUrl is defined %}
+        <img src="{{ posterUrl }}?h=240" />
+    {% endif %}
+
+    <div>
+        <h3>Cast</h3>
+        <ul>
+        {% for cast in cast %}
+            <li>
+                {% if cast.person.imageUrl is defined %}
+                    <img src="{{ cast.person.imageUrl }}?h=240" />
+                {% endif %}
+
+                <a href="{{ path('person', {id: cast.person._id}) }}">
+                    {{ cast.person.name }}
+                </a>
+
+                as {{ cast.characterName }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
