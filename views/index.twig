@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-    <ul>
+    <ul class="list">
     {% for movie in movies %}
         <li>
             <a href="{{ path('movie', {id: movie._id}) }}">
@@ -10,7 +10,7 @@
                 {% endif %}
 
                 <h3>{{ movie.title }} ({{ movie.releaseDate|date("Y") }})</h3>
-                <p>Directed by {{ movie.director ?? '<unknown>' }}</p>
+                <p class="movies-list__directed-by">Directed by {{ movie.director ?? '<unknown>' }}</p>
             </a>
         </li>
     {% endfor %}

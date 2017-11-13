@@ -21,6 +21,6 @@ Once downloaded, open the terminal in the project directory, and install depende
 
 Then start the example app with
 
-    > composer run dev
+    > composer run dev --timeout=0
 
 The app should now be up and running at http://localhost:3000

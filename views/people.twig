@@ -1,25 +1,16 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-    <ul>
+    <ul class="list">
     {% for person in people %}
-        <li>
+        <li class="list__item">
             <a href="{{ path('person', {id: person._id}) }}">
                 {% if person.imageUrl is defined %}
-                    <img src="{{ person.imageUrl }}?h=240" />
+                    <img src="{{ person.imageUrl }}?w=240" />
                 {% endif %}
 
-                <h2>{{ person.name }}</h2>
+                <h3>{{ person.name }}</h3>
             </a>
-
-            <h3>Movies</h3>
-            {% for movie in person.movies %}
-                <li>
-                    <a href="{{ path('movie', {id: movie._id}) }}">
-                        {{ movie.title }}
-                    </a>
-                </li>
-            {% endfor %}
         </li>
     {% endfor %}
     </ul>

@@ -53,11 +53,7 @@ $app->get('/people', function (Silex\Application $app) use ($sanity) {
     *[_type == "person"] {
       _id,
       name,
-      "imageUrl": image.asset->url,
-      "movies": *[_type == "movie" && references(^._id)] {
-        _id,
-        title
-      }
+      "imageUrl": image.asset->url
     }[0...50]';
 
     $people = $sanity->fetch($query);

@@ -1,23 +1,27 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-    {% if imageUrl is defined %}
-        <img src="{{ imageUrl }}?h=240" />
-    {% endif %}
+    <div class="person">
+        <div class="person__header">
+            {% if imageUrl is defined %}
+                <img src="{{ imageUrl }}?w=240" />
+            {% endif %}
 
-    <h2>{{ name }}</h2>
+            <h1>{{ name }}</h1>
+        </div>
 
-    <div>
-        <h3>Acted in</h3>
-        <ul>
+        <h2>Acted in</h2>
+        <ul class="list">
         {% for movie in actedIn %}
             <li>
-                {% if movie.posterUrl is defined %}
-                    <img src="{{ movie.posterUrl }}?h=240" />
-                {% endif %}
-
                 <a href="{{ path('movie', {id: movie._id}) }}">
-                    {{ movie.title }} ({{ movie.releaseDate|date("Y") }})
+                    {% if movie.posterUrl is defined %}
+                        <img src="{{ movie.posterUrl }}?w=240" />
+                    {% endif %}
+
+                    <div>
+                        {{ movie.title }} ({{ movie.releaseDate|date("Y") }})
+                    </div>
                 </a>
             </li>
         {% endfor %}
