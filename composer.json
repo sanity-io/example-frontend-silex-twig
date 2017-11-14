@@ -5,7 +5,7 @@
     "require": {
         "twig/twig": "^2.4",
         "silex/silex": "^2.2",
-        "sanity/sanity-php": "^1.1",
+        "sanity/silex-service-provider": "dev-master",
         "symfony/twig-bridge": "^3.3"
     }
 }

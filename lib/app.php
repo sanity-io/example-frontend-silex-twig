@@ -1,16 +1,19 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$sanity = require __DIR__ . '/sanity.php';
-
 $app = new Silex\Application();
 $app['debug'] = getenv('APP_ENV') !== 'production';
+$app['config'] = require __DIR__ . '/../config/config.php';
+
 $app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__ . '/../views',
 ]);
+$app->register(new Sanity\Silex\ServiceProvider(), [
+    'sanity.client.options' => $app['config']['sanity']
+]);
 
 // Front page (movies list)
-$app->get('/', function (Silex\Application $app) use ($sanity) {
+$app->get('/', function (Silex\Application $app) {
     $query = '
     *[_type == "movie"] {
       _id,
@@ -21,12 +24,12 @@ $app->get('/', function (Silex\Application $app) use ($sanity) {
       "posterUrl": poster.asset->url
     }[0...50]';
 
-    $movies = $sanity->fetch($query);
+    $movies = $app['sanity.client']->fetch($query);
     return $app['twig']->render('index.twig', ['movies' => $movies]);
 })->bind('movies');
 
 // Movie page
-$app->get('/movie/{id}', function (Silex\Application $app, $id) use ($sanity) {
+$app->get('/movie/{id}', function (Silex\Application $app, $id) {
     $query = '
     *[_type == "movie" && _id == $id] {
       _id,
@@ -43,12 +46,12 @@ $app->get('/movie/{id}', function (Silex\Application $app, $id) use ($sanity) {
       }
     }[0]';
 
-    $movie = $sanity->fetch($query, ['id' => $id]);
+    $movie = $app['sanity.client']->fetch($query, ['id' => $id]);
     return $app['twig']->render('movie.twig', $movie);
 })->bind('movie');
 
 // People page
-$app->get('/people', function (Silex\Application $app) use ($sanity) {
+$app->get('/people', function (Silex\Application $app) {
     $query = '
     *[_type == "person"] {
       _id,
@@ -56,12 +59,12 @@ $app->get('/people', function (Silex\Application $app) use ($sanity) {
       "imageUrl": image.asset->url
     }[0...50]';
 
-    $people = $sanity->fetch($query);
+    $people = $app['sanity.client']->fetch($query);
     return $app['twig']->render('people.twig', ['people' => $people]);
 })->bind('people');
 
 // Person page
-$app->get('/person/{id}', function (Silex\Application $app, $id) use ($sanity) {
+$app->get('/person/{id}', function (Silex\Application $app, $id) {
     $query = '
     *[_type == "person" && _id == $id] {
       _id,
@@ -76,7 +79,7 @@ $app->get('/person/{id}', function (Silex\Application $app, $id) use ($sanity) {
     }[0]
     ';
 
-    $person = $sanity->fetch($query, ['id' => $id]);
+    $person = $app['sanity.client']->fetch($query, ['id' => $id]);
     return $app['twig']->render('person.twig', $person);
 })->bind('person');
 
