@@ -1,7 +1,7 @@
 Sanity + Silex + Twig example
 ===
 
-This is an example [Sanity](https://www.sanity.io) backed frontend for the movies database dataset using [Silex](https://silex.symfony.com) and [Twig](https://twig.symfony.com).
+This is an example [Sanity](https://www.sanity.io/docs) powered frontend for the movies database dataset using [Silex](https://silex.symfony.com) and [Twig](https://twig.symfony.com).
 
 ## Prerequisites
 
