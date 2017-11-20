@@ -2,10 +2,15 @@
     "scripts": {
         "dev": "php -S localhost:3000 -t public/"
     },
+    "config": {
+        "platform": {
+            "php": "5.6.0"
+        }
+    },
     "require": {
-        "twig/twig": "^2.4",
+        "twig/twig": "^1.35",
         "silex/silex": "^2.2",
-        "sanity/silex-service-provider": "dev-master",
+        "sanity/silex-service-provider": "^1.0",
         "symfony/twig-bridge": "^3.3"
     }
 }
