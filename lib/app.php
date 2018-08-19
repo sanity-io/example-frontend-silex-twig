@@ -70,11 +70,11 @@ $app->get('/person/{id}', function (Silex\Application $app, $id) {
       _id,
       name,
       "imageUrl": image.asset->url,
-      "actedIn": *[_type == "movie" && references(^._id) && (^._id in castMembers[].person._ref)] {
+      "actedIn": *[_type == "movie" && references(^._id)] {
         _id,
         title,
         releaseDate,
-        "posterUrl": poster.asset->url
+        "posterUrl": post.asset->url
       }
     }[0]
     ';
